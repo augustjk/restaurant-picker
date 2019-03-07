@@ -1,0 +1,23 @@
+
+export const UPDATE_SEARCH_STR = "UPDATE_SEARCH_STR";
+export const UPDATE_SEARCH_LOC = "UPDATE_SEARCH_LOC";
+export const REQUEST_LIST = "REQUEST_LIST";
+export const RECEIVE_LIST = "RECEIVE_LIST";
+
+
+export const SELECT_CARD = "SELECT_CARD";
+export const REMOVE_CARD = "REMOVE_CARD";
+export const DISPLAY_MODAL = "DISPLAY_MODAL";
+export const CLOSE_MODAL = "CLOSE_MODAL";
+export const USE_GEOLOC = "USE_GEOLOC";
+export const DISPLAY_SIGNIN = "DISPLAY_SIGNIN";
+export const CLOSE_SIGNIN = "CLOSE_SIGNIN";
+export const SIGN_IN = "SIGN_IN";
+export const SIGN_OUT = "SIGN_OUT";
+export const UPDATE_USERNAME = "UPDATE_USERNAME";
+export const UPDATE_PASSWORD = "UPDATE_PASSWORD";
+export const UPDATE_REG_NAME = "UPDATE_REG_NAME";
+export const UPDATE_REG_USER = "UPDATE_REG_USER";
+export const UPDATE_REG_PW = "UPDATE_REG_PW";
+export const SAVE_FAVORITE = "SAVE_FAVORITE";
+export const LOAD_FAVORITE = "LOAD_FAVORITE";

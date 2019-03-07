@@ -1,0 +1,113 @@
+body {
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+label {
+  margin: 5px;
+}
+
+input {
+  height: 20px;
+  font-size: 18px;
+  padding: 5px;
+}
+
+#closeSignin {
+  float: right;
+}
+
+#outerheader {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin-bottom: 20px;
+}
+
+#innerheader {
+  flex-basis: 80%;
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+}
+
+#searchStr {
+  margin-right: 20px;
+  width: 30vw;
+  padding-left: 10px;
+}
+
+#searchLoc {
+  width: 25vw;
+  padding-left: 10px;
+}
+
+#searchButton {
+  margin-left: 20px;
+}
+
+#listsContainer {
+  display: flex;
+}
+
+#searchResults {
+  flex-basis: 50%;
+}
+
+button {
+  font-size: 18px;
+
+  padding: 5px;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  background-color: lightblue;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: lightskyblue;
+}
+
+.signin {
+  margin: 5px;
+}
+
+.register {
+  display: block;
+  margin: 5px;
+}
+
+#selectedList {
+  flex-basis: 50%;
+}
+
+.list {
+  height: 75vh;
+  overflow: auto;
+}
+
+.listHeading {
+  height: 3em;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} 
+
+.listItem {
+  border: solid 2px lightblue;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 18px;
+}
+
+.listItem:hover {
+  border: solid 2px lightcoral;
+}

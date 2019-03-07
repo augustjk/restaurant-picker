@@ -10,8 +10,9 @@ module.exports = {
   devServer: {
     publicPath: '/build/',
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/': 'http://localhost:3000',
     },
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -26,8 +27,8 @@ module.exports = {
             },
       },
       {
-        test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
       }
     ]
   },
