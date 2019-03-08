@@ -47,9 +47,9 @@ const SearchBar = props => {
     <div id="outerheader">
       <form id="innerheader" onSubmit={handleSubmit}>
         <label htmlFor="searchStr">Find </label>
-        <input id="searchStr" type="text" value={props.searchStr} placeholder="e.g. Food / Sushi / Bars" onChange={(e)=>props.updateSearchStr(e.target.value)}></input>
+        <input id="searchStr" type="text" autocomplete="off" value={props.searchStr} placeholder="e.g. Food / Sushi / Bars" onChange={(e)=>props.updateSearchStr(e.target.value)}></input>
         <label htmlFor="searchLoc">Near </label>
-        <input id="searchLoc" type="text" value={props.searchLoc} placeholder="e.g. Venice, CA / 90291 / Abbot Kinney" onChange={(e)=>props.updateSearchLoc(e.target.value)}></input>
+        <input id="searchLoc" type="text" autocomplete="off" value={props.searchLoc} placeholder="e.g. Venice, CA / 90291 / Abbot Kinney" onChange={(e)=>props.updateSearchLoc(e.target.value)}></input>
         <img src="/assets/location-icon-png-4240.png" height="25" style={{cursor: "pointer"}} title="Use Current Location" onClick={handleCurrentLoc}/>
         <button id="searchButton" className="button" type="submit">Search</button>
       </form>

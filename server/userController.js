@@ -16,13 +16,14 @@ userController.createUser = (req, res) => {
   .then(resp=>{
     res.locals.data = {status: "success"};
     res.locals.data.id = resp._id;
-    res.locals.datda.name = resp.name;
+    res.locals.data.name = resp.name;
     res.locals.data.favorite = [];
-    const jwtCookie = jwt.sign({id: resp_id}, process.env.JWT_KEY);
+    const jwtCookie = jwt.sign({id: resp._id}, process.env.JWT_KEY);
     res.cookie('jwt', jwtCookie, {httpOnly: true});
     res.json(res.locals.data);
   })
   .catch(err => {
+    console.log(err);
     res.json({status: "duplicate"});
   });
 }
@@ -82,6 +83,8 @@ userController.checkCookie = (req, res, next) => {
         }
       })
     });
+  } else {
+    next();
   }
 }
 

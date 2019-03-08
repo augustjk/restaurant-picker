@@ -65,16 +65,16 @@ const SigninModal = props => {
         <button id="closeSignin" onClick={props.closeSignin}>Close</button>
         <h3>Sign In</h3>
         <form onSubmit={handleSignIn}>
-          <input className="signin" id="username" type="text" placeholder="Username" value={props.username} onChange={(e)=>props.updateUsername(e.target.value)}></input>
-          <input className="signin" pw="password" type="password" placeholder="Password" onChange={(e)=>props.updatePassword(e.target.value)}></input>
+          <input className="signin" id="username" type="text" placeholder="Username" autocomplete="off" value={props.username} onChange={(e)=>props.updateUsername(e.target.value)}></input>
+          <input className="signin" pw="password" type="password" placeholder="Password" autocomplete="off" onChange={(e)=>props.updatePassword(e.target.value)}></input>
           <button className="signin" type='submit'>Sign In</button>
           <span><em>&nbsp;&nbsp;{props.errorMsg}</em></span>
         </form>
         <p>Or register below:</p>
         <form onSubmit={handleRegister}>
-          <input className="register" id="reg_name" type="text" placeholder="Your name" onChange={(e)=>props.updateRegName(e.target.value)}></input>
-          <input className="register" id="reg_username" type="text" placeholder="Username" value={props.regUser} onChange={(e)=>props.updateRegUser(e.target.value)}></input>
-          <input className="register" pw="reg_password" type="password" placeholder="Password" onChange={(e)=>props.updateRegPw(e.target.value)}></input>
+          <input className="register" id="reg_name" type="text" placeholder="Your name" autocomplete="off" onChange={(e)=>props.updateRegName(e.target.value)}></input>
+          <input className="register" id="reg_username" type="text" placeholder="Username" value={props.regUser} autocomplete="off" onChange={(e)=>props.updateRegUser(e.target.value)}></input>
+          <input className="register" pw="reg_password" type="password" placeholder="Password" autocomplete="off" onChange={(e)=>props.updateRegPw(e.target.value)}></input>
           <button className="register" type='submit'>Register</button>
           <span><em>&nbsp;&nbsp;{props.regError}</em></span>
         </form>
