@@ -19,6 +19,12 @@ const initialState = {
   regPw: '',
   favorite: [],
   id: null,
+  messageModal: false,
+  message: '',
+  name: '',
+  errorMsg: '',
+  regError: '',
+  cookieMsg: '',
 };
 
 const businessReducer = (state=initialState, action) => {
@@ -106,12 +112,17 @@ const businessReducer = (state=initialState, action) => {
         signinModal: false,
         id: action.payload.id,
         favorite: action.payload.favorite,
+        messageModal: true,
+        name: action.payload.name,
+        message: `Wecome ${action.payload.name}!`,
       }
     }
 
     case types.SIGN_OUT: {
       return {
         ...state,
+        messageModal: true,
+        message: 'Good bye!',
         loggedIn: false,
       }
     }
@@ -119,7 +130,8 @@ const businessReducer = (state=initialState, action) => {
     case types.UPDATE_USERNAME: {
       return {
         ...state,
-        username: action.payload,
+        username: action.payload.toLowerCase(),
+        errorMsg: '',
       };
     }
 
@@ -127,6 +139,7 @@ const businessReducer = (state=initialState, action) => {
       return {
         ...state,
         password: action.payload,
+        errorMsg: '',
       };
     }
 
@@ -140,7 +153,7 @@ const businessReducer = (state=initialState, action) => {
     case types.UPDATE_REG_USER: {
       return {
         ...state,
-        regUser: action.payload,
+        regUser: action.payload.toLowerCase(),
       };
     }
 
@@ -155,6 +168,8 @@ const businessReducer = (state=initialState, action) => {
       return {
         ...state,
         favorite: state.selectedList.slice(),
+        messageModal: true,
+        message: 'Saved!',
       };
     }
 
@@ -163,6 +178,44 @@ const businessReducer = (state=initialState, action) => {
         ...state,
         selectedList: state.favorite.slice(),
       };
+    }
+
+    case types.OPEN_MSG_MODAL: {
+      return {
+        ...state,
+        message: action.payload,
+        messageModal: true,
+      }
+    }
+
+    case types.CLOSE_MSG_MODAL: {
+      return {
+        ...state,
+        messageModal: false,
+        cookieMsg: '',
+      }
+    }
+
+    case types.SET_ERROR_MSG: {
+      return {
+        ...state,
+        errorMsg: action.payload,
+      }
+    }
+
+    case types.SET_REG_ERROR: {
+      return {
+        ...state,
+        regError: action.payload,
+      }
+    }
+
+    case types.CHECK_COOKIE: {
+      return {
+        ...state,
+        messageModal: true,
+        cookieMsg: 'This site uses cookies to remember your repeat visits. Usage of this site constitues your consent to the usage of cookies.',
+      }
     }
 
     default:

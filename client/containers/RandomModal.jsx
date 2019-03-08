@@ -18,7 +18,7 @@ const RandomModal = props => {
   if (!props.displayModal) return null;
 
   return (
-    <div style={{
+    <div className="modal" onClick={props.closeModal} style={{
       position: "absolute",
       top: 0,
       left: 0,

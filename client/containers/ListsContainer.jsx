@@ -8,6 +8,7 @@ import SelectedList from '../components/SelectedList.jsx';
 const mapStateToProps = store => ({
   searchList: store.business.searchList,
   selectedList: store.business.selectedList,
+  loggedIn: store.business.loggedIn,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -22,7 +23,7 @@ const ListsContainer = props => {
   return (
     <div id="listsContainer">
       <SearchResults searchList={props.searchList} handleClick={props.selectCard} />
-      <SelectedList selectedList={props.selectedList} handleClick={props.removeCard} displayModal={props.displayModal} saveFavorite={props.saveFavorite} loadFavorite={props.loadFavorite} />
+      <SelectedList selectedList={props.selectedList} handleClick={props.removeCard} displayModal={props.displayModal} saveFavorite={props.saveFavorite} loadFavorite={props.loadFavorite} loggedIn={props.loggedIn} />
     </div>
   );
 };

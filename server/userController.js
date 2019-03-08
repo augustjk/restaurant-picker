@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const User = require('./userModel');
 
@@ -15,7 +16,10 @@ userController.createUser = (req, res) => {
   .then(resp=>{
     res.locals.data = {status: "success"};
     res.locals.data.id = resp._id;
+    res.locals.datda.name = resp.name;
     res.locals.data.favorite = [];
+    const jwtCookie = jwt.sign({id: resp_id}, process.env.JWT_KEY);
+    res.cookie('jwt', jwtCookie, {httpOnly: true});
     res.json(res.locals.data);
   })
   .catch(err => {
@@ -34,7 +38,10 @@ userController.verifyUser = (req, res, next) => {
       if (isMatch) {
         res.locals.data = {status: "success"};
         res.locals.data.id = resp._id;
+        res.locals.data.name = resp.name;
         res.locals.data.favorite = resp.favorite;
+        const jwtCookie = jwt.sign({id: resp._id}, process.env.JWT_KEY);
+        res.cookie('jwt', jwtCookie, {httpOnly: true});
         next();
       } else {
         res.json({status: "mismatch"});
@@ -50,6 +57,37 @@ userController.saveFavorite = (req, res, next) => {
     if (err) next(err);
     res.json({status: "success"});
   });
+}
+
+userController.checkCookie = (req, res, next) => {
+  if (Object.entries(req.cookies).length === 0) {
+    res.locals.status = "not found";
+    next();
+  }
+
+  res.locals.searchLoc = req.cookies.loc;
+
+  if (req.cookies.jwt) {
+    jwt.verify(req.cookies.jwt, process.env.JWT_KEY, (err, decoded) => {
+      res.locals.id = decoded.id;
+      User.findById(decoded.id, (err, resp) => {
+        if (err) next(err);
+        if (!resp) {
+          res.locals.status = "not found";
+        } else {
+          res.locals.status = "success";
+          res.locals.name = resp.name;
+          res.locals.favorite = resp.favorite;
+          next();
+        }
+      })
+    });
+  }
+}
+
+userController.signout = (req, res, next) => {
+  res.clearCookie('jwt');
+  res.send('success');
 }
 
 

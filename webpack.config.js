@@ -10,7 +10,12 @@ module.exports = {
   devServer: {
     publicPath: '/build/',
     proxy: {
-      '/': 'http://localhost:3000',
+      '/api': 'http://localhost:3000',
+      '/check': 'http://localhost:3000',
+      '/register': 'http://localhost:3000',
+      '/signin': 'http://localhost:3000',
+      '/save': 'http://localhost:3000',
+      '/signout': 'http://localhost:3000',
     },
     filename: 'bundle.js',
   },

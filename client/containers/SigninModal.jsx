@@ -9,6 +9,8 @@ const mapStateToProps = store => ({
   regName: store.business.regName,
   regUser: store.business.regUser,
   regPw: store.business.regPw,
+  errorMsg: store.business.errorMsg,
+  regError: store.business.regError,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -20,6 +22,7 @@ const mapDispatchToProps = dispatch => ({
   updateRegName: (text) => { dispatch(actions.updateRegName(text)) },
   updateRegUser: (text) => { dispatch(actions.updateRegUser(text)) },
   updateRegPw: (text) => { dispatch(actions.updateRegPw(text)) },
+  setRegError: (text) => { dispatch(actions.setRegError(text)) },
 });
 
 const SigninModal = props => {
@@ -30,18 +33,19 @@ const SigninModal = props => {
     if (props.username && props.password){
       props.signIn();
     }
-    
-  } 
+  }
 
   function handleRegister(e) {
     e.preventDefault();
     if (props.regName && props.regUser && props.regPw) {
       props.register();
+    } else {
+      props.setRegError('All fields required');
     }
   }
 
   return (
-    <div style={{
+    <div className="modal" onClick={props.closeSignin} style={{
       position: "absolute",
       top: 0,
       left: 0,
@@ -49,7 +53,7 @@ const SigninModal = props => {
       right: 0,
       background: "rgba(0, 0, 0, 0.15)"
     }}>
-      <div style={{
+      <div onClick={(e)=>e.stopPropagation()} style={{
           position: "absolute",
           background: "#fff",
           top: "20%",
@@ -61,16 +65,18 @@ const SigninModal = props => {
         <button id="closeSignin" onClick={props.closeSignin}>Close</button>
         <h3>Sign In</h3>
         <form onSubmit={handleSignIn}>
-          <input className="signin" id="username" type="text" placeholder="Username" onChange={(e)=>props.updateUsername(e.target.value)}></input>
+          <input className="signin" id="username" type="text" placeholder="Username" value={props.username} onChange={(e)=>props.updateUsername(e.target.value)}></input>
           <input className="signin" pw="password" type="password" placeholder="Password" onChange={(e)=>props.updatePassword(e.target.value)}></input>
           <button className="signin" type='submit'>Sign In</button>
+          <span><em>&nbsp;&nbsp;{props.errorMsg}</em></span>
         </form>
         <p>Or register below:</p>
         <form onSubmit={handleRegister}>
           <input className="register" id="reg_name" type="text" placeholder="Your name" onChange={(e)=>props.updateRegName(e.target.value)}></input>
-          <input className="register" id="reg_username" type="text" placeholder="Username" onChange={(e)=>props.updateRegUser(e.target.value)}></input>
+          <input className="register" id="reg_username" type="text" placeholder="Username" value={props.regUser} onChange={(e)=>props.updateRegUser(e.target.value)}></input>
           <input className="register" pw="reg_password" type="password" placeholder="Password" onChange={(e)=>props.updateRegPw(e.target.value)}></input>
           <button className="register" type='submit'>Register</button>
+          <span><em>&nbsp;&nbsp;{props.regError}</em></span>
         </form>
       </div>
     </div>

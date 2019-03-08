@@ -3,11 +3,6 @@ import React from 'react';
 import ListItem from './ListItem.jsx';
 
 const SelectedList = props => {
-  let items = [];
-  for (let i = 0; i < props.selectedList.length; i++) {
-    items.push(<ListItem key={'s' + i} index={i} data={props.selectedList[i]} handleClick={props.handleClick} />);
-  }
-
   function handleButtonPress() {
     if (props.selectedList.length) {
       props.displayModal();
@@ -22,13 +17,24 @@ const SelectedList = props => {
     props.loadFavorite();
   }
 
+  let items = [];
+  for (let i = 0; i < props.selectedList.length; i++) {
+    items.push(<ListItem key={'s' + i} index={i} data={props.selectedList[i]} handleClick={props.handleClick} />);
+  }
+
+  let buttons = [];
+  if (props.loggedIn) {
+    buttons.push(<button key="save" id="save" onClick={handleSave}>Save</button>, <button key="load" id="load" onClick={handleLoad}>Load</button>);
+  }
+  if (props.selectedList.length) {
+    buttons.push(<button key="random" id="random" onClick={handleButtonPress}>Pick one for me!</button>);
+  }
+
   return (
     <div id="selectedList">
       <div className="listHeading">
-      <p>Candidates</p>
-      <button id="save" onClick={handleSave}>Save</button>
-      <button id="load" onClick={handleLoad}>Load</button>
-      <button id="random" onClick={handleButtonPress}>Pick one for me!</button>
+      <p id="candidates">Candidates</p>
+      {buttons}
       </div>
       <div className="list">
       {items}

@@ -7,6 +7,10 @@ h1 {
   text-align: center;
 }
 
+h3 {
+  text-align: center;
+}
+
 label {
   margin: 5px;
 }
@@ -60,7 +64,7 @@ input {
 
 button {
   font-size: 18px;
-
+  margin: 10px;
   padding: 5px;
   font-size: 18px;
   text-align: center;
@@ -69,10 +73,15 @@ button {
   background-color: lightblue;
   border: none;
   border-radius: 5px;
+  
 }
 
 button:hover {
   background-color: lightskyblue;
+}
+
+button:active {
+  background-color: lightcoral;
 }
 
 .signin {
@@ -88,6 +97,10 @@ button:hover {
   flex-basis: 50%;
 }
 
+#candidates {
+  margin-right: 200px;
+}
+
 .list {
   height: 75vh;
   overflow: auto;
@@ -97,7 +110,6 @@ button:hover {
   height: 3em;
   font-weight: bold;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 } 
 
@@ -106,8 +118,31 @@ button:hover {
   padding-left: 10px;
   padding-right: 10px;
   font-size: 18px;
+  display: flex;
+  align-items: center;
 }
 
 .listItem:hover {
   border: solid 2px lightcoral;
+}
+
+.rating {
+  height: 18px;
+}
+
+.listImg {
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+  margin: 10px;
+  flex-shrink: 1;
+}
+
+.modal {
+  animation: fadeEffect 0.5s;
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }

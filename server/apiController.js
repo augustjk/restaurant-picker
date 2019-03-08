@@ -17,7 +17,8 @@ apiController.requestList = (req, res, next) => {
 
   if (req.body.searchLoc) {
     let searchLoc = req.body.searchLoc.replace(/[^a-zA-Z0-9, ]/g,'').replace(/ /g, '%20');
-    config.params.location = searchLoc;  
+    config.params.location = searchLoc;
+    res.cookie('loc', req.body.searchLoc);
   } else {
     config.params.latitude = req.body.latitude;
     config.params.longitude = req.body.longitude;
@@ -27,20 +28,20 @@ apiController.requestList = (req, res, next) => {
 
   
 
-  axios.get(url, config)
-  .then((resp)=>{
-    // console.log(resp.data);
-    // fs.writeFileSync('tempdata2.json', JSON.stringify(resp.data));
-    res.locals.data = resp.data;
-    next();
-  })
-  .catch(console.error)
-
-  // fs.readFile('tempdata.json', (err, data) => {
-  //   if (err) next(err);
-  //   res.locals.data = JSON.parse(data);
+  // axios.get(url, config)
+  // .then((resp)=>{
+  //   // console.log(resp.data);
+  //   // fs.writeFileSync('tempdata2.json', JSON.stringify(resp.data));
+  //   res.locals.data = resp.data;
   //   next();
-  // });
+  // })
+  // .catch(console.error)
+
+  fs.readFile('tempdata2.json', (err, data) => {
+    if (err) next(err);
+    res.locals.data = JSON.parse(data);
+    next();
+  });
 }
 
 

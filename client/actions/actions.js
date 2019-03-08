@@ -84,6 +84,20 @@ export const signIn = () => (dispatch, getState) => {
           });
           break;
         }
+        case "not found":{
+          dispatch({
+            type: types.SET_ERROR_MSG,
+            payload: "User not found."
+          });
+          break;
+        }
+        case "mismatch": {
+          dispatch({
+            type: types.SET_ERROR_MSG,
+            payload: "Incorrect password."
+          });
+          break;
+        }
         default: {
           dispatch({
             type: types.SIGN_OUT,
@@ -105,18 +119,41 @@ export const register = () => (dispatch, getState) => {
   axios.post('/register', body)
   .then(res => {
     if (res.status === 200) {
-      dispatch({
-        type: types.SIGN_IN,
-        payload: res.data,
-      });
+      switch (res.data.status) {
+        case "success": {
+          dispatch({
+            type: types.SIGN_IN,
+            payload: res.data,
+          });
+          break;
+        }
+        case "duplicate":{
+          dispatch({
+            type: types.SET_REG_ERROR,
+            payload: "Username already taken."
+          });
+          break;
+        }
+        default: {
+          dispatch({
+            type: types.SIGN_OUT,
+          });
+        }
+      }
     }
   })
   .catch(console.error);
 }
 
-export const signOut = () => ({
-  type: types.SIGN_OUT,
-});
+export const signOut = () => (dispatch) => {
+  axios.get('/signout')
+  .then(res => {
+    dispatch({
+      type: types.SIGN_OUT,
+    })
+  })
+  .catch(console.error);
+};
 
 export const updateUsername = (text) => ({
   type: types.UPDATE_USERNAME,
@@ -148,7 +185,7 @@ export const saveFavorite = () => (dispatch, getState) => {
     id: getState().business.id,
     favorite: getState().business.selectedList,
   };
-  console.log(body);
+  
   axios.post('/save', body)
   .then(res => {
     if (res.status === 200) {
@@ -158,8 +195,51 @@ export const saveFavorite = () => (dispatch, getState) => {
     }
   })
   .catch(console.error);
-}
+};
 
 export const loadFavorite = () => ({
   type: types.LOAD_FAVORITE,
 });
+
+export const openMsgModal = (message) => ({
+  type: types.OPEN_MSG_MODAL,
+  payload: message,
+});
+
+export const closeMsgModal = () => ({
+  type: types.CLOSE_MSG_MODAL,
+});
+
+export const setErrorMsg = (text) => ({
+  type: types.SET_ERROR_MSG,
+  payload: text,
+});
+
+export const setRegError = (text) => ({
+  type: types.SET_REG_ERROR,
+  payload: text,
+});
+
+export const checkCookie = () => (dispatch) => {
+  axios.get('/check')
+  .then(res => {
+    if (res.data.status === "success") {
+      dispatch({
+        type: types.SIGN_IN,
+        payload: res.data,
+      });
+    }
+    if (res.data.searchLoc){
+      dispatch({
+        type: types.UPDATE_SEARCH_LOC,
+        payload: res.data.searchLoc,
+      });
+    }
+    if (res.data.status === "not found") {
+      dispatch({
+        type: types.CHECK_COOKIE,
+      })
+    }
+  })
+  .catch(console.error);
+};
