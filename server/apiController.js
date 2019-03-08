@@ -28,20 +28,20 @@ apiController.requestList = (req, res, next) => {
 
   
 
-  // axios.get(url, config)
-  // .then((resp)=>{
-  //   // console.log(resp.data);
-  //   // fs.writeFileSync('tempdata2.json', JSON.stringify(resp.data));
-  //   res.locals.data = resp.data;
-  //   next();
-  // })
-  // .catch(console.error)
-
-  fs.readFile('tempdata2.json', (err, data) => {
-    if (err) next(err);
-    res.locals.data = JSON.parse(data);
+  axios.get(url, config)
+  .then((resp)=>{
+    // console.log(resp.data);
+    // fs.writeFileSync('tempdata2.json', JSON.stringify(resp.data));
+    res.locals.data = resp.data;
     next();
-  });
+  })
+  .catch(console.error)
+
+  // fs.readFile('tempdata2.json', (err, data) => {
+  //   if (err) next(err);
+  //   res.locals.data = JSON.parse(data);
+  //   next();
+  // });
 }
 
 
